@@ -9,12 +9,14 @@ class Client:
     connected = False
 
     def __init__(self):
+        print(bgcolor.OKCYAN + "Aguardando conexão..." + bgcolor.ENDC)
+
         self.recognizer = Recognizer()
         self.sio = socketio.Client()
 
         @self.sio.event
         def message(data):
-            print('I received a message!')
+            print("I received a message!")
 
         @self.sio.event
         def connect():
@@ -28,16 +30,15 @@ class Client:
         @self.sio.event
         def disconnect():
             self.connected = False
-            print(bgcolor.OKCYAN + 'Disconectado' + bgcolor.ENDC)
-
-        print(bgcolor.OKCYAN + 'Aguardando conexão...' + bgcolor.ENDC)
+            print(bgcolor.OKCYAN + "Disconectado" + bgcolor.ENDC)
 
     def connect(self, address):
         try:
             self.sio.connect(address)
             return True
-        except:
-            print(bgcolor.FAIL + 'Não foi possível conectar ao servidor' + bgcolor.ENDC)
+        except Exception as e:
+            print(bgcolor.FAIL + "Não foi possível conectar ao servidor" + bgcolor.ENDC)
+            print(bgcolor.FAIL + "Erro: " + str(e) + bgcolor.ENDC)
             return False
 
     def disconnect(self):
