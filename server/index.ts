@@ -4,8 +4,7 @@ import chalk from "chalk";
 const io = new Server(3000);
 
 io.on("connection", (socket) => {
-	// Envia uma messagem para o cliente
-	socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
+	console.log(chalk.blue("[🐣] Socket conectado"));
 
 	//recebe uma mensagem do cliente
 	socket.on("hello from client", (...args) => {

@@ -39,7 +39,12 @@ class Recognizer:
             ret, frame = video_capture.read()
 
             # Resize the frame to a fixed size
-            resized_frame = cv2.resize(frame, (300, 300))
+            resized_frame = None
+
+            try:
+                resized_frame = cv2.resize(frame, (300, 300))
+            except:
+                resized_frame = frame
 
             # Preprocess the frame (subtract mean and normalize)
             blob = cv2.dnn.blobFromImage(
@@ -84,6 +89,16 @@ class Recognizer:
                         frame,
                         emotion_text,
                         (x1, y1 - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.9,
+                        (0, 255, 0),
+                        2,
+                    )
+
+                    cv2.putText(
+                        frame,
+                        "Press Q to exit",
+                        (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX,
                         0.9,
                         (0, 255, 0),
