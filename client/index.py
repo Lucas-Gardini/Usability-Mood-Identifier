@@ -11,8 +11,8 @@ class Client:
     def __init__(self):
         print(bgcolor.OKCYAN + "Aguardando conexão..." + bgcolor.ENDC)
 
-        self.recognizer = Recognizer()
         self.sio = socketio.Client()
+        self.recognizer = Recognizer(self.sio)
 
         @self.sio.event
         def message(data):

@@ -16,6 +16,16 @@ from utils.preprocessor import preprocess_input
 
 
 class Recognizer:
+    socket = None
+
+    lastStableRecognition = None
+    currentRecognition = None
+    diffFrames = 0
+
+    # constructor that receives the socket
+    def __init__(self, socket):
+        self.socket = socket
+
     def recognize(self, video_path):
         # Parâmetros para carregamento dos modelos
         model_path = (
@@ -40,6 +50,9 @@ class Recognizer:
 
             # Resize the frame to a fixed size
             resized_frame = None
+
+            if frame is None:
+                break
 
             try:
                 resized_frame = cv2.resize(frame, (300, 300))
@@ -83,6 +96,21 @@ class Recognizer:
                     )
                     emotion_label_arg = np.argmax(emotion_prediction)
                     emotion_text = emotion_labels[emotion_label_arg]
+
+                    if self.lastStableRecognition == None:
+                        self.lastStableRecognition = emotion_text
+                        self.currentRecognition = emotion_text
+                        self.socket.emit("emotion", emotion_text)
+                    else:
+                        if self.lastStableRecognition == emotion_text:
+                            self.diffFrames = 0
+                        else:
+                            self.diffFrames += 1
+                            if self.diffFrames >= 10:
+                                self.lastStableRecognition = emotion_text
+                                self.diffFrames = 0
+                                self.currentRecognition = emotion_text
+                                self.socket.emit("emotion", emotion_text)
 
                     # Draw the predicted emotion label on the frame
                     cv2.putText(

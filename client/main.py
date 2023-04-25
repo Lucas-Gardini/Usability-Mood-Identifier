@@ -35,6 +35,7 @@ def startup():
                 startup()
             else:
                 client.startRecognition(videoPath)
+                exit()
 
 
 startup()
