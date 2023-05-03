@@ -1,19 +1,11 @@
 # Código baseado em: https://github.com/oarriaga/face_classification
 
-from statistics import mode
-
 import cv2
 from keras.models import load_model
 import numpy as np
 
 from utils.datasets import get_labels
-from utils.inference import detect_faces
-from utils.inference import draw_text
-from utils.inference import draw_bounding_box
-from utils.inference import apply_offsets
-from utils.inference import load_detection_model
 from utils.preprocessor import preprocess_input
-
 
 class Recognizer:
     socket = None
@@ -43,7 +35,11 @@ class Recognizer:
         # Iniciando a transmissão de vídeo
         cv2.namedWindow("window_frame")
         # video_capture = cv2.VideoCapture(2)
-        video_capture = cv2.VideoCapture(video_path)
+        if (video_path == None):
+            video_capture = cv2.VideoCapture(0)
+        else:
+            video_capture = cv2.VideoCapture(video_path)
+
         while True:
             # Read a frame from the video stream
             ret, frame = video_capture.read()
@@ -106,7 +102,7 @@ class Recognizer:
                             self.diffFrames = 0
                         else:
                             self.diffFrames += 1
-                            if self.diffFrames >= 10:
+                            if self.diffFrames >= 30:
                                 self.lastStableRecognition = emotion_text
                                 self.diffFrames = 0
                                 self.currentRecognition = emotion_text

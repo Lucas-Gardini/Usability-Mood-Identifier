@@ -16,10 +16,9 @@ def startup():
     success = client.connect(server)
 
     if success:
-        videoType = input("Video type (0: camera; 1: video): ")
+        videoType = int(input("Video type (0: camera; 1: video): "))
         if videoType == 0:
-            # TODO:
-            print("A FAZER")
+            client.startRecognition(None)
         else:
             # Vídeos existentes disponíveis na pasta ./videos
             print("Videos available:")
