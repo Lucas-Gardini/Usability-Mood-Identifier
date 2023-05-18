@@ -7,6 +7,7 @@ import numpy as np
 from utils.datasets import get_labels
 from utils.preprocessor import preprocess_input
 
+
 class Recognizer:
     socket = None
 
@@ -35,7 +36,7 @@ class Recognizer:
         # Iniciando a transmissão de vídeo
         cv2.namedWindow("window_frame")
         # video_capture = cv2.VideoCapture(2)
-        if (video_path == None):
+        if video_path == None:
             video_capture = cv2.VideoCapture(0)
         else:
             video_capture = cv2.VideoCapture(video_path)
@@ -102,7 +103,7 @@ class Recognizer:
                             self.diffFrames = 0
                         else:
                             self.diffFrames += 1
-                            if self.diffFrames >= 30:
+                            if self.diffFrames >= 10:
                                 self.lastStableRecognition = emotion_text
                                 self.diffFrames = 0
                                 self.currentRecognition = emotion_text

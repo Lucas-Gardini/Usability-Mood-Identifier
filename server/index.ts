@@ -1,7 +1,13 @@
 import { Server, Socket } from "socket.io";
+import Express from "express";
 import chalk from "chalk";
+import http from "http";
 
-const io = new Server(3000);
+const app = Express();
+const server = http.createServer(app);
+const io = new Server(server);
+
+app.use(Express.static("website"));
 
 let webClient: Socket<any> = null as any;
 
@@ -11,17 +17,19 @@ io.on("connection", (socket) => {
 	//recebe uma mensagem do cliente
 	socket.on("emotion", (...args) => {
 		console.log(chalk.blue("[🐣] Emotion recebida"));
-		console.log(args);
 
 		if (webClient) webClient.emit("emotion", ...args);
 	});
 
-	socket.on("client-connection", (...args) => {
-		console.log(chalk.blue("[🐣] Client connection recebida"));
-		console.log(args);
+	socket.on("web", (...args) => {
+		console.log(chalk.blue("[🖥️] Interface web connectada"));
 
 		webClient = socket;
 	});
 });
 
-console.log(chalk.green("[⚡] Socket aberto em 3000"));
+// Start the server
+const port = 3000;
+server.listen(port, () => {
+	console.log(chalk.green("[⚡] Socket aberto em 3000"));
+});
