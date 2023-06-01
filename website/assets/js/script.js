@@ -63,14 +63,15 @@ socket.on("emotion", (message) => {
 });
 
 function aplicarEstilos() {
-	let elements = document.querySelectorAll("div, p, ion-icon");
+	let elements = document.querySelectorAll("div, ion-icon");
 
 	console.log(emocao);
 
 	for (let i = 0; i < elements.length; i++) {
-		let element = elements[i];
+		let element = elements[i]
 
-		element.style.color = emotions[emocao].backgroundColor;
+		element.style.backgroundColor = emotions[emocao].backgroundColor
+		element.style.color = emotions[emocao].color
 	}
 }
 
