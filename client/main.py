@@ -19,6 +19,9 @@ def startup():
         videoType = int(input("Video type (0: camera; 1: video): "))
         if videoType == 0:
             client.startRecognition(None)
+            # Ao finalizar, destrói a instância do client
+            client.disconnect()
+            exit()
         else:
             # Vídeos existentes disponíveis na pasta ./videos
             print("Videos available:")
@@ -34,6 +37,8 @@ def startup():
                 startup()
             else:
                 client.startRecognition(videoPath)
+                # Ao finalizar, destrói a instância do client
+                client.disconnect()
                 exit()
 
 

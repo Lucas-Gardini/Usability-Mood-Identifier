@@ -48,4 +48,4 @@ class Client:
         return self.sio.emit(event, message)
 
     def startRecognition(self, videoPath):
-        self.recognizer.recognize(videoPath)
+        return self.recognizer.recognize(videoPath)
