@@ -1,0 +1,109 @@
+{
+  "executions": [
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:35:27",
+      "emotion": null
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:37:17",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:37:21",
+      "emotion": "happy"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:37:24",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:37:33",
+      "emotion": "surprise"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:37:35",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:38:09",
+      "emotion": "happy"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:38:23",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:41:09",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:41:12",
+      "emotion": "angry"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:41:14",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:43:55",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:44:02",
+      "emotion": "angry"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:44:04",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:46:01",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:46:21",
+      "emotion": "surprise"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:46:23",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:47:14",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:58:15",
+      "emotion": "neutral"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:59:03",
+      "emotion": "sad"
+    },
+    {
+      "user": "Luka",
+      "time": "15/06/2023 19:59:07",
+      "emotion": "neutral"
+    }
+  ]
+}

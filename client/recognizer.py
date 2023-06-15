@@ -1,5 +1,3 @@
-# Código baseado em: https://github.com/oarriaga/face_classification
-
 import cv2
 from keras.models import load_model
 import numpy as np
@@ -15,28 +13,25 @@ class Recognizer:
     currentRecognition = None
     diffFrames = 0
 
-    # constructor that receives the socket
     def __init__(self, socket):
         self.socket = socket
 
     def recognize(self, video_path):
-        # Parâmetros para carregamento dos modelos
-        model_path = (
+        # Load face detection model
+        model_path = "client/trained_models/detection_models/face_detection/res10_300x300_ssd_iter_140000.caffemodel"
+        config_path = (
             "client/trained_models/detection_models/face_detection/deploy.prototxt"
         )
-        weights_path = "client/trained_models/detection_models/face_detection/res10_300x300_ssd_iter_140000.caffemodel"
-        net = cv2.dnn.readNetFromCaffe(model_path, weights_path)
+        net = cv2.dnn.readNetFromCaffe(config_path, model_path)
 
+        # Load emotion recognition model
         emotion_model_path = "client/trained_models/emotion_model.hdf5"
         emotion_labels = get_labels("fer2013")
-
-        # Carregando os modelos
         emotion_classifier = load_model(emotion_model_path, compile=False)
 
-        # Iniciando a transmissão de vídeo
+        # Initialize video capture
         cv2.namedWindow("window_frame")
-        # video_capture = cv2.VideoCapture(2)
-        if video_path == None:
+        if video_path is None:
             video_capture = cv2.VideoCapture(0)
         else:
             video_capture = cv2.VideoCapture(video_path)
@@ -45,16 +40,11 @@ class Recognizer:
             # Read a frame from the video stream
             ret, frame = video_capture.read()
 
-            # Resize the frame to a fixed size
-            resized_frame = None
-
             if frame is None:
                 break
 
-            try:
-                resized_frame = cv2.resize(frame, (300, 300))
-            except:
-                resized_frame = frame
+            # Resize the frame to a fixed size
+            resized_frame = cv2.resize(frame, (300, 300))
 
             # Preprocess the frame (subtract mean and normalize)
             blob = cv2.dnn.blobFromImage(
@@ -94,7 +84,7 @@ class Recognizer:
                     emotion_label_arg = np.argmax(emotion_prediction)
                     emotion_text = emotion_labels[emotion_label_arg]
 
-                    if self.lastStableRecognition == None:
+                    if self.lastStableRecognition is None:
                         self.lastStableRecognition = emotion_text
                         self.currentRecognition = emotion_text
                         self.socket.emit("emotion", emotion_text)
@@ -120,16 +110,6 @@ class Recognizer:
                         2,
                     )
 
-                    cv2.putText(
-                        frame,
-                        "Press Q to exit",
-                        (10, 30),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.9,
-                        (0, 255, 0),
-                        2,
-                    )
-
             # Display the frame
             cv2.imshow("window_frame", frame)
 
@@ -139,3 +119,4 @@ class Recognizer:
 
         video_capture.release()
         cv2.destroyAllWindows()
+        return True
